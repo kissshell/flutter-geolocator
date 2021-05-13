@@ -1,8 +1,34 @@
+# A FLOSS fork of `geolocator` without any non-free dependencies
+
+A fork of the [Flutter geolocation plugin](https://pub.dev/packages/geolocator) implementing no proprietary classes for Android.
+
+### How to use FLOSS Geolocator for Flutter applications:
+
+Import normal `geolocator` as known. You may also use other packages using `geolocator` as dependency.
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  geolocator: ^7.0.3
+```
+
+To use FLOSS `geolocator` (e.g. only for the FLOSS builds), you can simply add a dependency override. This ensures other dependencies using `geolocator` are forced to use the FLOSS version too:
+
+```yaml
+dependency_overrides:
+  geolocator:
+    git:
+      url: https://gitlab.com/hanntech-gmbh/free2pass/flutter-geolocator-floss.git
+      ref: master # or e.g. `7.6.2` for an explicit version
+      path: geolocator
+```
+
+*Original README:*
+
+---
+
 # Flutter Geolocator Plugin  
-
-[![pub package](https://img.shields.io/pub/v/geolocator.svg)](https://pub.dartlang.org/packages/geolocator) ![Build status](https://github.com/Baseflow/flutter-geolocator/workflows/geolocator/badge.svg?branch=master) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart) [![codecov](https://codecov.io/gh/Baseflow/flutter-geolocator/branch/master/graph/badge.svg)](https://codecov.io/gh/Baseflow/flutter-geolocator)
-
-A Flutter geolocation plugin which provides easy access to platform specific location services ([FusedLocationProviderClient](https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderClient) or if not available the [LocationManager](https://developer.android.com/reference/android/location/LocationManager) on Android and [CLLocationManager](https://developer.apple.com/documentation/corelocation/cllocationmanager) on iOS).
 
 ## Features
 

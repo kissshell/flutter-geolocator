@@ -9,8 +9,9 @@ import androidx.annotation.Nullable;
 
 import com.baseflow.geolocator.errors.ErrorCallback;
 import com.baseflow.geolocator.errors.ErrorCodes;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.baseflow.geolocator.errors.PermissionUndefinedException;
+import com.baseflow.geolocator.permission.LocationPermission;
+import com.baseflow.geolocator.permission.PermissionManager;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -64,19 +65,7 @@ public class GeolocationManager
       Context context,
       boolean forceAndroidLocationManager,
       @Nullable LocationOptions locationOptions) {
-    if (forceAndroidLocationManager) {
-      return new LocationManagerClient(context, locationOptions);
-    }
-
-    return isGooglePlayServicesAvailable(context)
-        ? new FusedLocationClient(context, locationOptions)
-        : new LocationManagerClient(context, locationOptions);
-  }
-
-  private boolean isGooglePlayServicesAvailable(Context context) {
-    GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-    int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
-    return resultCode == ConnectionResult.SUCCESS;
+    return new LocationManagerClient(context, locationOptions);
   }
 
   @Override

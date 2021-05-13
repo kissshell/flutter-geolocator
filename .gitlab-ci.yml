@@ -1,0 +1,38 @@
+image: cirrusci/flutter:beta
+
+stages:
+  - build
+  - deploy
+
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - guerrilla_mail-*
+
+build:repo:
+  stage: build
+  script:
+    - git fetch origin
+    - git fetch --tags
+    - git --no-pager tag -l
+    - export PATH="$PATH:$HOME/.pub-cache/bin"
+    - flutter pub global activate repo_pub_server
+    - cd geolocator_android
+    - repo_pub_server https://hanntech-gmbh.gitlab.io/free2pass/flutter-geolocator-floss/ repo
+    - mv repo ../
+  artifacts:
+    paths:
+      - repo
+
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - mkdir public
+    - mv repo/* public/
+  dependencies:
+    - build:repo
+  artifacts:
+    paths:
+      - public

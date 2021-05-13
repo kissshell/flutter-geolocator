@@ -1,3 +1,33 @@
+# A FLOSS fork of `geolocator` without any non-free dependencies
+
+A fork of the [Flutter geolocation plugin](https://pub.dev/packages/geolocator) implementing no proprietary classes for Android.
+
+### How to use FLOSS Geolocator for Flutter applications:
+
+Import normal `geolocator` as known. You may also use other packages using `geolocator` as dependency.
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  geolocator: ^7.0.3
+```
+
+To use FLOSS `geolocator` (e.g. only for the FLOSS builds), you can simply add a dependency override. This ensures other dependencies using `geolocator` are forced to use the FLOSS version too:
+
+```yaml
+dependency_overrides:
+  geolocator:
+    git:
+      url: https://gitlab.com/free2pass/flutter-geolocator-floss.git
+      ref: master
+      path: geolocator
+```
+
+*Original README:*
+
+---
+
 # Flutter geolocator plugin
 
 The Flutter geolocator plugin is build following the federated plugin architecture. A detailed explanation of the federated plugin concept can be found in the [Flutter documentation](https://flutter.dev/docs/development/packages-and-plugins/developing-packages#federated-plugins). This means the geolocator plugin is separated into the following packages:
